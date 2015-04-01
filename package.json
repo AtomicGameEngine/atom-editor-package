@@ -1,0 +1,18 @@
+{
+  "name": "atomic-game-engine",
+  "main": "./lib/atomic-game-engine",
+  "version": "0.0.0",
+  "description": "An Atom package for the Atomic Game Engine",
+  "activationCommands": {
+    "atom-workspace": ["atomic-game-engine:openEditor", "atomic-game-engine:run"]
+  },
+  "repository": "https://github.com/AtomicGameEngine/AtomicGameEngine/tree/atomic_cli/CLI/atomic-game-engine",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+    "glob" : "*",
+    "atom-cli" : "0.2.9"
+  }
+}
