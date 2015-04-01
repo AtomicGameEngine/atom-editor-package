@@ -17,7 +17,7 @@
     "atom": ">=0.174.0 <2.0.0"
   },
   "dependencies": {
-    "glob": "*",
-    "atomic-cli": "0.3.0"
+    "glob": "latest",
+    "atomic-cli": "latest"
   }
 }
