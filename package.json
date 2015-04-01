@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "glob": "latest",
-    "atomic-cli": "latest"
+    "atomic-cli": "0.3.1"
   }
 }
