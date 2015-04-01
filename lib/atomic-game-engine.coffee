@@ -12,6 +12,7 @@ module.exports = AtomicGameEngine =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:openEditor': => @openEditor()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:run': => @run()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:activate': => @activateWithEditor()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -29,6 +30,11 @@ module.exports = AtomicGameEngine =
         return path
 
     return null
+
+  # function cannot be called activate or it screws up something in Atom
+  activateWithEditor: ->
+
+    AtomicCLI.atomiceditor []
 
   openEditor: ->
 

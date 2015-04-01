@@ -23,7 +23,11 @@
         {
           'label': 'Open Atomic Editor'
           'command': 'atomic-game-engine:openEditor'
-        }      
+        },
+        {
+          'label': 'Activate'
+          'command': 'atomic-game-engine:activate'
+        }
       ]
     ]
   }

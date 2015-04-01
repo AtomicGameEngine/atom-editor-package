@@ -6,7 +6,9 @@
   "activationCommands": {
     "atom-workspace": [
       "atomic-game-engine:openEditor",
-      "atomic-game-engine:run"
+      "atomic-game-engine:run",
+      "atomic-game-engine:activate"
+
     ]
   },
   "repository": "https://github.com/AtomicGameEngine/atom-editor-package",
@@ -16,6 +18,6 @@
   },
   "dependencies": {
     "glob": "*",
-    "atomic-cli": "0.2.9"
+    "atomic-cli": "0.3.0"
   }
 }
