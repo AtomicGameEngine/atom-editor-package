@@ -46,7 +46,7 @@ module.exports = AtomicGameEngine =
         message:"atomic-cli package required"
         detailedMessage:"atomic-cli package must be installed and activated"
         buttons:
-          "Get Instructions": -> open("http://www.atomicgameengine.com")
+          "Get Instructions": -> open("https://www.npmjs.com/package/atomic-cli")
           Cancel: ->
 
     return atomicConfig
