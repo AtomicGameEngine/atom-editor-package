@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "glob": "latest",
-    "osenv": "latest"
+    "osenv": "latest",
+    "open" : "latest"
   }
 }

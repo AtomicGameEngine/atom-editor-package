@@ -2,6 +2,7 @@ glob = require 'glob'
 fs = require 'fs'
 spawn = require("child_process").spawn
 osenv = require 'osenv'
+open = require 'open'
 
 {CompositeDisposable} = require 'atom'
 
@@ -21,6 +22,12 @@ module.exports = AtomicGameEngine =
 
   serialize: ->
 
+  displayNoProjectsDialog: ->
+    atom.confirm
+      message:"No Atomic Project"
+      detailedMessage:"There are no Atomic projects in the treeview"
+
+
   getAtomicConfig: ->
 
     configFilename = osenv.home() + "/.atomicgameengine/config.json"
@@ -33,7 +40,14 @@ module.exports = AtomicGameEngine =
 
     if not atomicConfig or not atomicConfig.activated
       atomicConfig = null
-      console.log "display atomic-cli install and activate info"
+
+    if not atomicConfig
+      atom.confirm
+        message:"atomic-cli package required"
+        detailedMessage:"atomic-cli package must be installed and activated"
+        buttons:
+          "Get Instructions": -> open("http://www.atomicgameengine.com")
+          Cancel: ->
 
     return atomicConfig
 
@@ -65,6 +79,8 @@ module.exports = AtomicGameEngine =
       files = glob.sync path + "/*.atomic"
       if files.length
         return path
+
+    @displayNoProjectsDialog()
 
     return null
 
