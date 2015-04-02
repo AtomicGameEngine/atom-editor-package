@@ -1,6 +1,7 @@
 glob = require 'glob'
 fs = require 'fs'
 spawn = require("child_process").spawn
+osenv = require 'osenv'
 
 {CompositeDisposable} = require 'atom'
 
@@ -22,7 +23,7 @@ module.exports = AtomicGameEngine =
 
   getAtomicConfig: ->
 
-    configFilename = process.env["HOME"] + "/.atomicgameengine/config.json"
+    configFilename = osenv.home() + "/.atomicgameengine/config.json"
 
     atomicConfig = null
 
@@ -45,7 +46,8 @@ module.exports = AtomicGameEngine =
 
     command = command || []
     opts = {}
-    opts.detached = true
+    if process.platform is 'darwin'
+      opts.detached = true
     opts.cwd = path
     opts.stdio = ["ignore", "ignore", "ignore"]
 
@@ -83,6 +85,8 @@ module.exports = AtomicGameEngine =
 
       if process.platform is 'darwin'
         platform = "mac"
+      else
+        platform = "windows"
 
       if platform
         @runCLI ["run", "--project", path, platform]
