@@ -1,7 +1,7 @@
 {
   "name": "atomic-game-engine",
   "main": "./lib/atomic-game-engine",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "An Atom package for the Atomic Game Engine",
   "activationCommands": {
     "atom-workspace": [
