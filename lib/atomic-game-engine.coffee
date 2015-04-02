@@ -1,5 +1,7 @@
-AtomicCLI = require 'atomic-cli'
 glob = require 'glob'
+fs = require 'fs'
+spawn = require("child_process").spawn
+
 {CompositeDisposable} = require 'atom'
 
 module.exports = AtomicGameEngine =
@@ -12,17 +14,50 @@ module.exports = AtomicGameEngine =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:openEditor': => @openEditor()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:run': => @run()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atomic-game-engine:activate': => @activateWithEditor()
 
   deactivate: ->
     @subscriptions.dispose()
 
   serialize: ->
 
+  getAtomicConfig: ->
+
+    configFilename = process.env["HOME"] + "/.atomicgameengine/config.json"
+
+    atomicConfig = null
+
+    try
+      atomicConfig = JSON.parse fs.readFileSync configFilename
+    catch error
+
+    if not atomicConfig or not atomicConfig.activated
+      atomicConfig = null
+      console.log "display atomic-cli install and activate info"
+
+    return atomicConfig
+
+  runCLI: (command) ->
+
+    config =  @getAtomicConfig()
+
+    if not config
+      return
+
+    command = command || []
+    opts = {}
+    opts.detached = true
+    opts.cwd = path
+    opts.stdio = ["ignore", "ignore", "ignore"]
+
+    command.unshift config.cliScript
+
+    child = spawn config.nodePath, command, opts
+
+    child.unref()
 
   getAtomicProjectPath: ->
 
-    paths = atom.project.getPaths();
+    paths = atom.project.getPaths()
 
     for path in paths
       files = glob.sync path + "/*.atomic"
@@ -31,22 +66,23 @@ module.exports = AtomicGameEngine =
 
     return null
 
-  # function cannot be called activate or it screws up something in Atom
-  activateWithEditor: ->
-
-    AtomicCLI.atomiceditor []
-
   openEditor: ->
 
     path = @getAtomicProjectPath()
 
     if path
-      AtomicCLI.atomiceditor ["-project", path]
+      @runCLI ["edit", path]
 
   run: ->
 
     path = @getAtomicProjectPath()
 
     if path
-      process.chdir(path)
-      AtomicCLI.run("mac")
+
+      platform = null
+
+      if process.platform is 'darwin'
+        platform = "mac"
+
+      if platform
+        @runCLI ["run", "--project", path, platform]
