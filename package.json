@@ -1,7 +1,7 @@
 {
   "name": "atomic-game-engine",
   "main": "./lib/atomic-game-engine",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "An Atom package for the Atomic Game Engine",
   "activationCommands": {
     "atom-workspace": [
@@ -17,6 +17,6 @@
   "dependencies": {
     "glob": "latest",
     "osenv": "latest",
-    "open" : "latest"
+    "open": "latest"
   }
 }
