@@ -26,6 +26,8 @@ module.exports = AtomicGameEngine =
     atom.confirm
       message:"No Atomic Project"
       detailedMessage:"There are no Atomic projects in the treeview"
+      buttons:
+        Ok: ->
 
 
   getAtomicConfig: ->
